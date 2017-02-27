@@ -24,3 +24,7 @@ export GPG_TTY # This is to allow GPG to know which terminal to run the pin entr
 
 alias fuck='sudo $(history -p \!\!)'
 alias fixyourself='sl'
+
+export HISTCONTROL="ignorespace"
+
+alias nohistory='set -o history && $1 set +o history'
