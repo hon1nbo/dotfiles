@@ -52,7 +52,7 @@ passwd $NEWUSER
 
 bash $SCRIPTS_DIR/$PLATFORM/install/cli-basic.sh
 
-if [[ $DESKTOP -ne "none" ]] ; then
+if [[ $DESKTOP != "none" ]] ; then
 	bash $SCRIPTS_DIR/$PLATFORM/install/xorg.sh;
         bash $SCRIPTS_DIR/$PLATFORM/install/$DESKTOP.sh;
 	bash $SCRIPTS_DIR/$PLATFORM/install/desktop-common.sh;
@@ -69,7 +69,7 @@ rsync -av $SCRIPTS_DIR/$ARCH/home/ /home/$NEWUSER/
 
 # fix permissions on the SSH folder
 chmod 700 /home/$NEWUSER/.ssh
-chmod 640 /home/$NEWUSER/.ssh/*
+chmod 640 /home/$NEWUSER/.ssh/\*
 
 # fix general home folder ownership
 chown -R $NEWUSER:$NEWUSER /home/$NEWUSER
