@@ -14,4 +14,4 @@ echo "Let's update things first"
 pacman -Syyu
 
 echo "Now let's install some of the packages we need"
-pacman -S dialog screen nano vim zsh p7zip parted unzip openssh git
+pacman -S rsync dialog screen nano vim zsh p7zip parted unzip openssh git
