@@ -64,6 +64,19 @@ fi
 echo "Set the password for $NEWUSER"
 passwd $NEWUSER
 
+########################
+# Core Package Installs
+
+bash $BASIC_CLI_PATH
+
+if [[ $INSTALL_i3 == "true" ]] ; then
+        bash i3_PATH;
+        mkdir -p /home/$NEWUSER/.scripts/i3 
+        mv $SCRIPTS_DIR/$PLATFORM/i3/* /home/$NEWUSER/.scripts/i3/
+        ln -s /home/$NEWUSER/.scripts/i3/xinitrc /home/$NEWUSER/.xinitrc 
+fi
+#######################
+
 # let's go ahead and put the scripts in this user's homedir
 
 cp -r $BOOTSTRAP_DIR/common/home/* /home/$NEWUSER/
@@ -75,16 +88,6 @@ chmod 640 /home/$NEWUSER/.ssh/*
 
 # fix general home folder ownership
 chown -R $NEWUSER:$NEWUSER /home/$NEWUSER
-
-########################
-# Core Package Installs
-
-bash $BASIC_CLI_PATH
-
-if [[ $INSTALL_i3 == "true" ]] ; then
-        bash i3_PATH;
-fi
-#######################
 
 ###########################
 # Install Optional Package Choices

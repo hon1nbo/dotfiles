@@ -10,5 +10,4 @@ fi
 
 sh $PWD/install_basic_cli.sh
 
-pacman -Sy i3 dmenu imagemagick i3lock scrot xautolock keepass chromium termite xterm firefox
-
+pacman -Sy i3 dmenu imagemagick i3lock scrot xautolock keepass chromium termite xterm firefox redshift
