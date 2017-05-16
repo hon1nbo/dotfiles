@@ -8,4 +8,4 @@ if [[ $(id -u) -ne 0 ]] ; then
         exit 1;
 fi
 
-pacman -S i3 dmenu imagemagick i3lock scrot xautolock compton
+pacman -S i3 keepass chromium termite xterm firefox redshift xrandr

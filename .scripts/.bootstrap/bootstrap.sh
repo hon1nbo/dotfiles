@@ -1,11 +1,15 @@
 #!/bin/bash
 
-# Platform: Arch Linux
-
-# The goal of this script is to bootstrap various items in the system that are of critical importance.
+####################################
+# Hon1nbo's new system Bootstrapper
+# Platform: Multi (Arch, Debian, Centos/RHEL)
+# The goal of this script is to bootstrap various items in the system that are of critical importance to have a working platform
+# 
 # This includes moving in profiles, setting up critical trust, etc.
+####################################
 
 # Check if we have privs to install
+
 if [[ $(id -u) -ne 0 ]] ; then
         echo "Please re-run as Root or with Sudo!";
         exit 1;
@@ -15,32 +19,11 @@ fi
 BOOTSTRAP_DIR=$PWD
 SCRIPTS_DIR=$PWD/../
 
-###########################################
-# Set the following Options #
+#################################
+# Make sure to edit your configs!
 
-NEWUSER=changeme
-NEW_USER_SUDO=false # set to true if you want them in the Wheel group
-
-# change the desired platform here if not using Arch
-PLATFORM=arch
-
-# Set to false if you don't want the i3 Window Manager. Requires basic CLI packages
-INSTALL_i3=true
-
-BASIC_CLI_PATH=$SCRIPTS_DIR/$PLATFORM/install/cli-basic.sh
-i3_PATH=$SCRIPTS_DIR/$PLATFORM/install/i3.sh
-
-# enable additional package groups at will
-
-VIRTUALIZATION=false
-NET_DIAG=false
-
-#TODO: add these scripts
-STEAM_GAMES=false
-SED_OPAL=false
-OFFICE_EDITING_UTILS=false
-
-################################################
+source $BOOTSTRAP_DIR/config
+#################################
 
 # Check if the required items are set
 if [[ $NEWUSER == "changeme" ]] ; then
@@ -67,20 +50,22 @@ passwd $NEWUSER
 ########################
 # Core Package Installs
 
-bash $BASIC_CLI_PATH
+bash $SCRIPTS_DIR/$PLATFORM/install/cli-basic.sh
 
-if [[ $INSTALL_i3 == "true" ]] ; then
-        bash i3_PATH;
-        mkdir -p /home/$NEWUSER/.scripts/i3 
-        mv $SCRIPTS_DIR/$PLATFORM/i3/* /home/$NEWUSER/.scripts/i3/
-        ln -s /home/$NEWUSER/.scripts/i3/xinitrc /home/$NEWUSER/.xinitrc 
+if [[ $DESKTOP -ne "none" ]] ; then
+	bash $SCRIPTS_DIR/$PLATFORM/install/xorg.sh;
+        bash $SCRIPTS_DIR/$PLATFORM/install/$DESKTOP.sh;
+	bash $SCRIPTS_DIR/$PLATFORM/install/desktop-common.sh;
+        mkdir -p /home/$NEWUSER/.scripts/$DESKTOP;
+        rsync -av $SCRIPTS_DIR/$PLATFORM/$DESKTOP/ /home/$NEWUSER/.scripts/$DESKTOP/;
+        ln -s /home/$NEWUSER/.scripts/$DESKTOP/xinitrc /home/$NEWUSER/.xinitrc;
 fi
 #######################
 
 # let's go ahead and put the scripts in this user's homedir
 
-cp -r $BOOTSTRAP_DIR/common/home/* /home/$NEWUSER/
-cp -r $SCRIPTS_DIR/$ARCH/home/* /home/$NEWUSER/
+rsync -av $BOOTSTRAP_DIR/common/home/ /home/$NEWUSER/
+rsync -av $SCRIPTS_DIR/$ARCH/home/ /home/$NEWUSER/
 
 # fix permissions on the SSH folder
 chmod 700 /home/$NEWUSER/.ssh
