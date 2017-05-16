@@ -24,7 +24,11 @@ SCRIPTS_DIR=$PWD/../
 
 source $BOOTSTRAP_DIR/config
 #################################
+# Let's run a quick Update 
+# & install the required base packages
 
+bash $SCRIPTS_DIR/$PLATFORM/install/cli-basic.sh
+##################################
 # Check if the required items are set
 if [[ $NEWUSER == "changeme" ]] ; then
         echo "Please set the new username in the script!";
@@ -37,7 +41,7 @@ fi
 
 
 echo "Adding user $NEWUSER"
-useradd -m $NEWUSER
+useradd -m -s $NEW_USER_SHELL $NEWUSER
 
 if [[ $NEWUSERSUDO == "true" ]] ; then
         echo "Putting $NEWUSER in the Wheel group";
@@ -48,9 +52,7 @@ echo "Set the password for $NEWUSER"
 passwd $NEWUSER
 
 ########################
-# Core Package Installs
-
-bash $SCRIPTS_DIR/$PLATFORM/install/cli-basic.sh
+# install the Desktop, if it was desired
 
 if [[ $DESKTOP != "none" ]] ; then
 	bash $SCRIPTS_DIR/$PLATFORM/install/xorg.sh;
