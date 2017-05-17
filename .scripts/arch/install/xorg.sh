@@ -1,6 +1,12 @@
 #!/bin/bash
 
-## This is to setup basic desktop requirements (including CLI if not already present) with an i3 window manager
+###############################################
+# File: dotfiles/.scripts/arch/install/xorg.sh
+# Script Group: Installer
+# Platform: Arch
+# Purpose: To install the X.org server
+###############################################
+
 
 # Check if we have privs to install
 if [[ $(id -u) -ne 0 ]] ; then

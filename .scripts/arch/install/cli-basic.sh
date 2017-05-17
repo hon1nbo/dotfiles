@@ -1,10 +1,17 @@
 #!/bin/bash
 
-## This is to setup basic CLI Requirements.
+###################################################################
+# File: dotfiles/.scripts/arch/install/cli-basic.sh
+# Script Group: Installer
+# Platform: Arch
+# Purpose: To setup the common CLI commands required on all systems
+###################################################################
+
+source ../../.bootstrap/common/bash_params
 
 # Check if we have privs to install
 if [[ $(id -u) -ne 0 ]] ; then
-        echo "Please re-run as Root or with Sudo!";
+        echo -e "${RED}ERROR:${NC} Please re-run as ${YELLOW}Root${NC} or with ${YELLOW}Sudo${NC}!";
         exit 1;
 fi
 

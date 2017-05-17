@@ -1,11 +1,12 @@
 #!/bin/bash
 
 ###################################################
-# File: dotfiles/.scripts/arch/install/i3.sh
+# File: dotfiles/.scripts/arch/install/cinnamon.sh
 # Script Group: Installer
 # Platform: Arch
-# Purpose: To setup external the i3 Window Manager
+# Purpose: To setup external the Cinnamon MATE Desktop
 ###################################################
+
 
 source ../../.bootstrap/common/bash_params
 
@@ -15,4 +16,4 @@ if [[ $(id -u) -ne 0 ]] ; then
         exit 1;
 fi
 
-pacman -S i3 dmenu imagemagick i3lock scrot xautolock compton
+pacman -S cinnamon guake

@@ -1,0 +1,15 @@
+#!/bin/sh
+
+###################################################
+# File: dotfiles/.scripts/arch/cinnamon/xinitrc
+# Script Group: Core dotfile
+# Platform: Arch
+# Purpose: To provide startup info for Cinnamon
+###################################################
+
+# Start sound server
+pulseaudio --start &
+
+redshift &
+
+exec cinnamon-session

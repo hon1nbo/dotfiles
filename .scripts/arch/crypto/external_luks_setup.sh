@@ -7,21 +7,18 @@
 # Purpose: To setup external media encryption such as LUKS
 ######################################
 
-RED='\033[1;31m'
-GREEN='\033[0;32m'
-NC='\033[0m'
+source ../../.bootstrap/common/bash_params
 
 if [[ $(id -u) -ne 0 ]] ; then
-	echo -e "Please re-run as ${RED}Root${NC} or with ${RED}Sudo!${NC}";
-	echo -e "If your user has block device access without sudo, this has not been checked yet and you can comment out this 
-portion of the script";
+	echo -e "${RED}ERROR:${NC} Please re-run as ${YELLOW}Root${NC} or with ${YELLOW}Sudo!${NC}";
+	echo -e "If your user has block device access without sudo, this has not been checked yet and you can comment out this portion of the script";
 	exit 1;
 fi
 
 DEVICE=$1
 
 if [[ ($DEVICE == "") ]] ; then
-	echo -e "No device specified.";
+	echo -e "${RED}No device specified.${NC}";
 	echo -e "Usage: external_luks_setup.sh /dev/sdXY";
 	exit 1;
 fi
@@ -32,8 +29,8 @@ HASH=sha256
 PBKDF_ITER=4000
 FS=ext4
 
-echo -e "Script to encrypt $DEVICE"
-echo -e "${RED}WARNING:${NC} Default is to use /dev/random"
+echo -e "Script to encrypt ${CYAN}$DEVICE${NC}"
+echo -e "${YELLOW}WARNING:${NC} Default is to use /dev/random"
 echo -e "This can block for a LONG time."
 echo -e "If not using a hardware Cryptographic RNG, switch to /dev/urandom if feasible"
 

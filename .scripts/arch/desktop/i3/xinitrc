@@ -1,6 +1,12 @@
 #!/bin/sh
 
-# xinitrc for i3 Window Manager
+###########################################
+# File: dotfiles/.scripts/arch/i3/xinitrc
+# Script Group: Desktop
+# Platform: Arch
+# Purpose: To provide startup info for i3
+###########################################
+
 
 # Start a terminal
 termite &

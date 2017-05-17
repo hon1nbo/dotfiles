@@ -9,15 +9,13 @@
 # Using SSH_USE_STRONG_RNG=1024 env variable, 8192bit host key takes less than 30s to generate still.
 ###########################################
 
-RED='\033[1;31m'
-GREEN='\033[0;32m'
-NC='\033[0m'
+source ../../.bootstrap/common/bash_params
 
+# Check if we have privs to install
 if [[ $(id -u) -ne 0 ]] ; then
-	echo -e "Please re-run as ${RED}Root${NC} or with ${RED}Sudo!${NC}";
-	exit 1;
+        echo -e "${RED}ERROR:${NC} Please re-run as ${YELLOW}Root${NC} or with ${YELLOW}Sudo${NC}!";
+        exit 1;
 fi
-
 
 cat <<'EOF' > /etc/udev/rules.d/99-TrueRNG.rules 
 # ubld.it TrueRNG
@@ -28,15 +26,6 @@ cat <<'EOF' > /etc/udev/rules.d/99-TrueRNG.rules
 # (Thanks neoaeon)
 SUBSYSTEM=="tty", ATTRS{product}=="TrueRNG", SYMLINK+="TrueRNG", RUN+="/bin/stty raw -echo -ixoff -F /dev/%k speed 3000000" ATTRS{idVendor}=="04d8", ATTRS{idProduct}=="f5fe", ENV{ID_MM_DEVICE_IGNORE}="1"
 EOF
-
-#DEVICE=$1
-
-#if [[ ($DEVICE == "") ]] ; then
-#	echo -e "No device specified.";
-#	echo -e "Usage: true_rng_setup.sh /dev/ttyXY";
-#	echo -e "${GREEN}HINT:${NC} In all liklihood, the TrueRNG is /dev/ttyACM0";
-#	exit 1;
-#fi
 
 pacman -S rng-tools
 
