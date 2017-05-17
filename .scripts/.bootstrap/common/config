@@ -1,0 +1,48 @@
+###########################################
+# Set the following Options  at a minimum #
+
+NEWUSER=changeme
+NEW_USER_SUDO=false # set to true if you want them in the Wheel group
+NEW_USER_SHELL=/usr/bin/zsh
+
+# change the desired platform here if not using Arch
+# Options:
+## arch
+## debian
+## centos-rhel
+
+PLATFORM=arch
+###########################################
+
+################
+# Desktop
+# Sets the desktop, if desired at all.
+# Options:
+## none
+## i3
+## connamon
+
+DESKTOP=i3
+################
+
+# enable additional package groups at will
+
+VIRTUALIZATION=false
+NET_DIAG=false
+
+#TODO: add these scripts
+STEAM_GAMES=false
+SED_OPAL=false
+OFFICE_EDITING_UTILS=false
+
+###########################
+
+# LUKS Settings
+
+LUKS_MODE=aes-xts-plain64
+LUKS_KEY_SIZE=256
+LUKS_HASH=sha256
+LUKS_PBKDF_ITER=4000
+LUKS_FS=ext4
+
+###########################

@@ -8,6 +8,7 @@
 ######################################
 
 source ../../.bootstrap/common/bash_params
+source ../..//bootstrap/common/config
 
 if [[ $(id -u) -ne 0 ]] ; then
 	echo -e "${RED}ERROR:${NC} Please re-run as ${YELLOW}Root${NC} or with ${YELLOW}Sudo!${NC}";
@@ -23,12 +24,6 @@ if [[ ($DEVICE == "") ]] ; then
 	exit 1;
 fi
 
-MODE=aes-xts-plain64
-KEY_SIZE=256
-HASH=sha256
-PBKDF_ITER=4000
-FS=ext4
-
 echo -e "Script to encrypt ${CYAN}$DEVICE${NC}"
 echo -e "${YELLOW}WARNING:${NC} Default is to use /dev/random"
 echo -e "This can block for a LONG time."
@@ -39,23 +34,23 @@ pause 1
 echo -e "Ensuring all the required packages are up to date"
 pacman -S exfat-utils xfsprogs parted dm-crypt
 
-cryptsetup -v --cipher $MODE --key-size $KEY_SIZE --hash $HASH --iter-time $PBKDF_ITER --use-random --verify-passphrase luksFormat $DEVICE
+cryptsetup -v --cipher $LUKS_MODE --key-size $LUKS_KEY_SIZE --hash $LUKS_HASH --iter-time $LUKS_PBKDF_ITER --use-random --verify-passphrase luksFormat $DEVICE
 
 echo -e "${GREEN}LUKS Device Created!${NC}"
 echo -e "Let's get it formatted and usable!"
 
 cryptsetup luksOpen $DEVICE encrypted-external-drive
 
-if [[ ($FS == "ext4") ]] ; then
+if [[ ($LUKS_FS == "ext4") ]] ; then
 	mkfs.ext4 /dev/mapper/encrypted-external-drive;
 fi
-if [[ ($FS == "ext2") ]] ; then
+if [[ ($LUKS_FS == "ext2") ]] ; then
         mke2fs /dev/mapper/encrypted-external-drive;
 fi
-if [[ ($FS == "exfat") ]] ; then
+if [[ ($LUKS_FS == "exfat") ]] ; then
         mkfs.exfat /dev/mapper/encrypted-external-drive;
 fi
-if [[ ($FS == "xfs") ]] ; then
+if [[ ($LUKS_FS == "xfs") ]] ; then
         mkfs.exfat /dev/mapper/encrypted-external-drive;
 fi
 

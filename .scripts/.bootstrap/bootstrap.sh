@@ -1,29 +1,31 @@
 #!/bin/bash
 
-####################################
+############################################################################
 # Hon1nbo's new system Bootstrapper
+# File: dotfiles/.scripts/.bootstrap/bootstrap.sh
 # Platform: Multi (Arch, Debian, Centos/RHEL)
-# The goal of this script is to bootstrap various items in the system that are of critical importance to have a working platform
-# 
+# Purpose: The goal of this script is to bootstrap various items
+# in the system that are of critical importance to have a working platform
 # This includes moving in profiles, setting up critical trust, etc.
-####################################
-
-# Check if we have privs to install
-
-if [[ $(id -u) -ne 0 ]] ; then
-        echo "Please re-run as Root or with Sudo!";
-        exit 1;
-fi
+############################################################################
 
 # Leave as-is unless you want to set an absolute path manually.
 BOOTSTRAP_DIR=$PWD
 SCRIPTS_DIR=$PWD/../
 
 #################################
-# Make sure to edit your configs!
+# Make sure to edit your config!
 
-source $BOOTSTRAP_DIR/config
+source $BOOTSTRAP_DIR/common/config
 #################################
+
+source $BOOTSTRAP_DIR/common/bash_params
+
+if [[ $(id -u) -ne 0 ]] ; then
+        echo -e "${RED}ERROR:${NC} Please re-run as ${YELLOW}Root${NC} or with ${YELLOW}Sudo!${NC}";
+        exit 1;
+fi
+
 # Let's run a quick Update 
 # & install the required base packages
 
@@ -31,11 +33,11 @@ bash $SCRIPTS_DIR/$PLATFORM/install/cli-basic.sh
 ##################################
 # Check if the required items are set
 if [[ $NEWUSER == "changeme" ]] ; then
-        echo "Please set the new username in the script!";
+        echo -e "${RED}ERROR:${NC} Please set the new ${YELLOW}username${NC} in the script!";
         exit 1;
 fi
 if [[ $NEW_USER_SUDO == "unknown" ]] ; then
-        echo "Please set the new username's sudo in the script!";
+        echo -e "${RED}ERROR:${NC}Please set the new username's ${YELLOW}sudo rights${NC} in the script!";
         exit 1;
 fi
 
@@ -48,7 +50,7 @@ if [[ $NEWUSERSUDO == "true" ]] ; then
         usermod -a -G wheel $NEWUSER;
 fi
 
-echo "Set the password for $NEWUSER"
+echo -e "Set the password for ${CYAN}$NEWUSER${NC}"
 passwd $NEWUSER
 
 ########################
