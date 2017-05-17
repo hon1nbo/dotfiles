@@ -18,9 +18,9 @@ BLURTYPE="0x5"
 #BLURTYPE="2x3"
 
 $SCRCAP
-convert $IMG -resize 50% $IMG
+convert $IMG -resize 25% $IMG
 convert $IMG -blur $BLURTYPE $IMG
-convert $IMG -resize 200% $IMG
+convert $IMG -resize 400% $IMG
 i3lock -i $IMG
 #rm $IMG
 

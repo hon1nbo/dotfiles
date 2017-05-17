@@ -1,31 +1,9 @@
- #!/bin/sh
-# Script to configure X, start common apps, and start xmonad.
-# Author: Vic Fryzel
-# http://github.com/vicfryzel/xmonad-config
+#!/bin/sh
 
+# xinitrc for i3 Window Manager
 
-# Configure PATH so that we can access our scripts below
-PATH=$PATH:~/.cabal/bin:~/.xmonad/bin
-
-# Configure X
-xsetroot -cursor_name left_ptr &
-xrdb -merge ~/.Xdefaults &
-
-# Start a window compositor. This ensures Google Chrome paints correctly.
-xcompmgr -n &
-
-# Start two terminals
+# Start a terminal
 termite &
-
-# Start a browser
-# google-chrome &
-# firefox &
-
-# Start Virtualbox
-# virtualbox &
-
-# Start SpiderOak
-# spideroakone &
 
 # Start screensaver
 # Kill gnome-screensaver if started by default
