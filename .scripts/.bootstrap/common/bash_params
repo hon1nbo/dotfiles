@@ -1,3 +1,10 @@
+################################################################
+# File: dotfiles/.scripts/.bootstrap/common/bash_params
+# Script Group: Core Scripts
+# Platform: Multi (Arch, Debian, CentOS-RHEL)
+# Purpose: To provide some basic variables for all scripts
+# such as colour, flags, settings that should never change, etc
+################################################################
 
 RED='\033[1;31m'
 GREEN='\033[0;32m'
