@@ -9,10 +9,13 @@ more of it.
 ```
 git clone https://github.com/hon1nbo/dotfiles
 cd dotfiles/.scripts/.bootstrap
-edit config file
-sh bootstrap.sh
-follow prompts
 ```
+edit config file
+```
+sh bootstrap.sh
+```
+follow prompts
+
 
 ## Supported Systems
 **Arch** is the primary supported system, however other OSes are in the works for the full bootstrapping scripts:
