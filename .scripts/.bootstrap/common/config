@@ -2,7 +2,7 @@
 # Set the following Options  at a minimum #
 
 NEWUSER=changeme
-NEW_USER_SUDO=false # set to true if you want them in the Wheel group
+NEW_USER_SUDO=unknown # set to true if you want them in the Wheel group
 NEW_USER_SHELL=/usr/bin/zsh
 
 # change the desired platform here if not using Arch
@@ -20,7 +20,7 @@ PLATFORM=arch
 # Options:
 ## none
 ## i3
-## connamon
+## cinnamon
 
 DESKTOP=i3
 ################

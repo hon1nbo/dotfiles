@@ -7,7 +7,10 @@
 # Purpose: To setup external the i3 Window Manager
 ###################################################
 
-source ../../.bootstrap/common/bash_params
+// this is meant to be called as a bootstrapper, so may not be in the usual place
+SCRIPTS_DIR=$1
+source $SCRIPTS_DIR/bash_params
+source $SCRIPTS_DIR/.bootstrap/common/config
 
 # Check if we have privs to install
 if [[ $(id -u) -ne 0 ]] ; then
@@ -15,4 +18,6 @@ if [[ $(id -u) -ne 0 ]] ; then
         exit 1;
 fi
 
-pacman -S i3 dmenu imagemagick i3lock scrot xautolock compton
+pacman -Sy i3 dmenu imagemagick i3lock scrot xautolock compton
+
+echo -e "echo -e "alias lock='~/.scripts/i3/i3_lock.sh'" >> /home/$NEWUSER/.bashrc

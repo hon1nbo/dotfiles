@@ -7,8 +7,9 @@
 # Purpose: To setup external media encryption such as LUKS
 ######################################
 
-source ../../.bootstrap/common/bash_params
-source ../..//bootstrap/common/config
+// this is meant to be callable outside of bootstrap. Still picking the best way to do it
+source $HOME/.scripts/bash_params
+source $HOME/.scripts/.bootstrap/common/config
 
 if [[ $(id -u) -ne 0 ]] ; then
 	echo -e "${RED}ERROR:${NC} Please re-run as ${YELLOW}Root${NC} or with ${YELLOW}Sudo!${NC}";
@@ -51,6 +52,6 @@ if [[ ($LUKS_FS == "exfat") ]] ; then
         mkfs.exfat /dev/mapper/encrypted-external-drive;
 fi
 if [[ ($LUKS_FS == "xfs") ]] ; then
-        mkfs.exfat /dev/mapper/encrypted-external-drive;
+        mkfs.xfs /dev/mapper/encrypted-external-drive;
 fi
 

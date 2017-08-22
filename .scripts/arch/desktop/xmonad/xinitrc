@@ -46,5 +46,3 @@ xautolock -time 10 -locker slock &
 
 #exec ck-launch-session dbus-launch --sh-syntax --exit-with-session xmonad
 exec xmonad
-#exec i3
-#exec cinnamon-session

@@ -8,7 +8,8 @@
 ##################################
 
 
-source ../../.bootstrap/common/bash_params
+SCRIPTS_DIR=$1
+source $SCRIPTS_DIR/bash_params
 
 # Check if we have privs to install
 if [[ $(id -u) -ne 0 ]] ; then
@@ -17,7 +18,7 @@ if [[ $(id -u) -ne 0 ]] ; then
 fi
 
 ## setup SED util
-yaourt -S sedutil
+yaourt -S sedutil-cli
 
 ###########
 # TODO: script ensuring the libata.tmp=1 flag is set in kernel parameters

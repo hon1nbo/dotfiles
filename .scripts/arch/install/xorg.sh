@@ -7,6 +7,9 @@
 # Purpose: To install the X.org server
 ###############################################
 
+// this is meant to be called as a bootstrapper, so may not be in the usual place
+SCRIPTS_DIR=$1
+source $SCRIPTS_DIR/bash_params
 
 # Check if we have privs to install
 if [[ $(id -u) -ne 0 ]] ; then
@@ -15,4 +18,4 @@ if [[ $(id -u) -ne 0 ]] ; then
 fi
 
 
-pacman -S xorg xorg-server-common xorg-xinit
+pacman -S xorg xorg-server-common xorg-xinit xorg-xrandr

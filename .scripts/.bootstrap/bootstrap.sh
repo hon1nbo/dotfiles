@@ -19,7 +19,7 @@ SCRIPTS_DIR=$PWD/../
 source $BOOTSTRAP_DIR/common/config
 #################################
 
-source $BOOTSTRAP_DIR/common/bash_params
+source $SCRIPTS_DIR/bash_params
 
 if [[ $(id -u) -ne 0 ]] ; then
         echo -e "${RED}ERROR:${NC} Please re-run as ${YELLOW}Root${NC} or with ${YELLOW}Sudo!${NC}";
@@ -29,7 +29,7 @@ fi
 # Let's run a quick Update 
 # & install the required base packages
 
-bash $SCRIPTS_DIR/$PLATFORM/install/cli-basic.sh
+bash $SCRIPTS_DIR/$PLATFORM/install/cli-basic.sh $SCRIPTS_DIR
 ##################################
 # Check if the required items are set
 if [[ $NEWUSER == "changeme" ]] ; then
@@ -53,19 +53,6 @@ fi
 echo -e "Set the password for ${CYAN}$NEWUSER${NC}"
 passwd $NEWUSER
 
-########################
-# install the Desktop, if it was desired
-
-if [[ $DESKTOP != "none" ]] ; then
-	bash $SCRIPTS_DIR/$PLATFORM/install/xorg.sh;
-        bash $SCRIPTS_DIR/$PLATFORM/install/$DESKTOP.sh;
-	bash $SCRIPTS_DIR/$PLATFORM/install/desktop-common.sh;
-        mkdir -p /home/$NEWUSER/.scripts/$DESKTOP;
-        rsync -av $SCRIPTS_DIR/$PLATFORM/$DESKTOP/ /home/$NEWUSER/.scripts/$DESKTOP/;
-        ln -s /home/$NEWUSER/.scripts/$DESKTOP/xinitrc /home/$NEWUSER/.xinitrc;
-fi
-#######################
-
 # let's go ahead and put the scripts in this user's homedir
 
 rsync -av $BOOTSTRAP_DIR/common/home/ /home/$NEWUSER/
@@ -78,14 +65,26 @@ chmod 640 /home/$NEWUSER/.ssh/\*
 # fix general home folder ownership
 chown -R $NEWUSER:$NEWUSER /home/$NEWUSER
 
+########################
+# install the Desktop, if it was desired
+
+if [[ $DESKTOP != "none" ]] ; then
+	bash $SCRIPTS_DIR/$PLATFORM/install/xorg.sh $SCRIPTS_DIR
+        bash $SCRIPTS_DIR/$PLATFORM/install/$DESKTOP.sh $SCRIPTS_DIR;
+	bash $SCRIPTS_DIR/$PLATFORM/install/desktop-common.sh $SCRIPTS_DIR;
+        mkdir -p /home/$NEWUSER/.scripts/$DESKTOP;
+        rsync -av $SCRIPTS_DIR/$PLATFORM/$DESKTOP/ /home/$NEWUSER/.scripts/$DESKTOP/;
+        ln -s /home/$NEWUSER/.scripts/$DESKTOP/xinitrc /home/$NEWUSER/.xinitrc;
+fi
+
 ###########################
 # Install Optional Package Choices
 
 if [[ $NET_DIAG == "true" ]] ; then
-        bash $SCRIPTS_DIR/$PLATFORM/install/network-diagnostics.sh;
+        bash $SCRIPTS_DIR/$PLATFORM/install/network-diagnostics.sh $SCRIPTS_DIR;
 fi
 if [[ $VIRTUALIZATION == "true" ]] ; then
-        bash $SCRIPTS_DIR/$PLATFORM/install/virtualization.sh;
+        bash $SCRIPTS_DIR/$PLATFORM/install/virtualization.sh $SCRIPTS_DIR;
 fi
 
 ##########################

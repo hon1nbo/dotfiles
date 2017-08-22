@@ -7,7 +7,11 @@
 # Purpose: To setup the common CLI commands required on all systems
 ###################################################################
 
-source ../../.bootstrap/common/bash_params
+
+// this is meant to be called as a bootstrapper, so may not be in the usual place
+SCRIPTS_DIR=$1
+source $SCRIPTS_DIR/bash_params
+
 
 # Check if we have privs to install
 if [[ $(id -u) -ne 0 ]] ; then
@@ -21,4 +25,11 @@ echo "Let's update things first"
 pacman -Syyu
 
 echo "Now let's install some of the packages we need"
-pacman -S rsync dialog wpa_actiond ifplugd wpa_suppicant sudo screen nano vim zsh p7zip parted unzip openssh git
+pacman -S rsync dialog wpa_actiond ifplugd wpa-supplicant sudo screen nano vim zsh p7zip parted unzip openssh git
+
+// let's build package-query & yaourt
+git clone https://aur.archlinux.org/package-query
+cd package-query && makepkg -syri && cd ../
+git clone https://aur.archlinux.org/yaourt
+cd yaourt && makepkg -syri && cd ../
+

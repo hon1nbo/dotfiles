@@ -1,5 +1,4 @@
 # Hon1nbo .bash_profile
-# handle GnuPG Agent
 
 # Setup GnuPG Agent on login
 
@@ -9,22 +8,30 @@ if [[ -e "$envfile" ]] && kill -0 $(grep GPG_AGENT_INFO "$envfile" | cut -d: -f 
 	SSH_AUTH_SOCK="$HOME/.gnupg/S.gpg-agent.ssh"
 	GPG_AGENT_INFO="$HOME/.gnupg/S.gpg-agent"
 else
-	eval "$(gpg-agent --daemon --enable-ssh-support --pinentry-program /usr/bin/pinentry-curses)"
+	eval "$(gpg-agent --daemon --enable-ssh-support --pinentry-program 
+/usr/bin/pinentry-curses)"
 fi
 
-#export TERM=/usr/bin/uxterm
+# Set SSH to use gpg-agent
+unset SSH_AGENT_PID
+if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
+  export SSH_AUTH_SOCK="/run/user/$UID/gnupg/S.gpg-agent.ssh"
+fi
 
 export GPG_AGENT_INFO # the env file does not contain the export statement
-export SSH_AUTH_SOCK # enable gpg-agent as an actual SSH Authentication Agent socket (otherwise ssh-add -L will fail)
+## this may be no longer required
+#export SSH_AUTH_SOCK # enable gpg-agent as an actual SSH Authentication Agent socket (otherwise 
+ssh-add -L will fail)
 export GPG_TTY # This is to allow GPG to know which terminal to run the pin entry on
+echo UPDATESTARTUPTTY | gpg-connect-agent
 
-#if [ -f ~/.bashrc ]; then
-#	source ~/.bashrc
-#fi
 
 alias fuck='sudo $(history -p \!\!)'
-alias fixyourself='sl'
 
 export HISTCONTROL="ignorespace"
 
 alias nohistory='set -o history && $1 set +o history'
+
+###################################################
+### Below this line is added by the bootstrapper ##
+###################################################
