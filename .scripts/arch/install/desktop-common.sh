@@ -18,4 +18,7 @@ if [[ $(id -u) -ne 0 ]] ; then
 fi
 
 
-pacman -Sy keepass chromium termite xterm firefox redshift pulseaudio pulseaudio-alsa pamixer gksu xorg-xrandr slock
+# keepass requires xdotools to support auto-type; not dependency otherwise
+ 
+pacman -Sy keepass xdotools chromium termite xterm firefox redshift pulseaudio pulseaudio-alsa 
+pamixer gksu xorg-xrandr slock
