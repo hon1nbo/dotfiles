@@ -7,7 +7,7 @@
 # Purpose: To setup external media encryption such as LUKS
 ######################################
 
-// this is meant to be callable outside of bootstrap. Still picking the best way to do it
+## this is meant to be callable outside of bootstrap. Still picking the best way to do it
 source $HOME/.scripts/bash_params
 source $HOME/.scripts/.bootstrap/common/config
 
@@ -42,16 +42,21 @@ echo -e "Let's get it formatted and usable!"
 
 cryptsetup luksOpen $DEVICE encrypted-external-drive
 
-if [[ ($LUKS_FS == "ext4") ]] ; then
-	mkfs.ext4 /dev/mapper/encrypted-external-drive;
-fi
-if [[ ($LUKS_FS == "ext2") ]] ; then
-        mke2fs /dev/mapper/encrypted-external-drive;
-fi
-if [[ ($LUKS_FS == "exfat") ]] ; then
-        mkfs.exfat /dev/mapper/encrypted-external-drive;
-fi
-if [[ ($LUKS_FS == "xfs") ]] ; then
-        mkfs.xfs /dev/mapper/encrypted-external-drive;
-fi
+case $LUKS_FS in
 
+  ext4)
+    mkfs.ext4 /dev/mapper/encrypted-external-drive;
+    ;;
+
+  ext2)
+    mke2fs /dev/mapper/encrypted-external-drive;
+    ;;
+
+  exfat)
+    mkfs.exfat /dev/mapper/encrypted-external-drive;
+    ;;
+
+  xfs)
+    mkfs.xfs /dev/mapper/encrypted-external-drive;
+    ;;
+esac
