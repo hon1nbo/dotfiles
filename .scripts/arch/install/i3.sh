@@ -7,7 +7,7 @@
 # Purpose: To setup external the i3 Window Manager
 ###################################################
 
-// this is meant to be called as a bootstrapper, so may not be in the usual place
+## this is meant to be called as a bootstrapper, so may not be in the usual place
 SCRIPTS_DIR=$1
 source $SCRIPTS_DIR/bash_params
 source $SCRIPTS_DIR/.bootstrap/common/config
