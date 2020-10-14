@@ -9,7 +9,7 @@
 # Using SSH_USE_STRONG_RNG=1024 env variable, 8192bit host key takes less than 30s to generate still.
 ###########################################
 
-// this is meant to be callable elsewhere. still not 100% set on the installation directory structure
+## this is meant to be callable elsewhere. still not 100% set on the installation directory structure
 source $HOME/.scripts/bash_params
 
 # Check if we have privs to install
