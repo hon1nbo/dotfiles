@@ -7,7 +7,7 @@
 # Purpose: To setup common Desktop apps
 #########################################################
 
-// this is meant to be called as a bootstrapper, so may not be in the usual place
+## this is meant to be called as a bootstrapper, so may not be in the usual place
 SCRIPTS_DIR=$1
 source $SCRIPTS_DIR/bash_params
 
@@ -20,5 +20,4 @@ fi
 
 # keepass requires xdotools to support auto-type; not dependency otherwise
  
-pacman -Sy keepass xdotools chromium termite xterm firefox redshift pulseaudio pulseaudio-alsa 
-pamixer gksu xorg-xrandr slock
+pacman -Sy keepass xdotools chromium termite xterm firefox redshift pulseaudio pulseaudio-alsa pamixer gksu xorg-xrandr slock
