@@ -1,5 +1,5 @@
 ################################################################
-# File: dotfiles/.scripts/.bootstrap/common/bash_params
+# File: dotfiles/.scripts/bash_params
 # Script Group: Core Scripts
 # Platform: Multi (Arch, Debian, CentOS-RHEL)
 # Purpose: To provide some basic variables for all scripts
